@@ -97,15 +97,16 @@ class TestApp:
     def test_baked_goods_by_price_returns_list_of_baked_goods_in_descending_order(self):
         '''returns JSON representing one models.Bakery object.'''
         with app.app_context():
-            prices = [baked_good.price for baked_good in BakedGood.query.all()]
-            highest_price = max(prices)
-
-            b1 = BakedGood(name="Madeleine", price=highest_price + 1)
+            # Create test data first so we have something to query
+            b1 = BakedGood(name="Madeleine", price=10)
             db.session.add(b1)
             db.session.commit()
-            b2 = BakedGood(name="Donut", price=highest_price - 1)
+            b2 = BakedGood(name="Donut", price=5)
             db.session.add(b2)
             db.session.commit()
+
+            prices = [baked_good.price for baked_good in BakedGood.query.all()]
+            highest_price = max(prices)
 
             response = app.test_client().get('/baked_goods/by_price')
             data = json.loads(response.data.decode())
@@ -138,15 +139,16 @@ class TestApp:
     def test_most_expensive_baked_good_route_returns_one_baked_good_object(self):
         '''returns JSON representing one models.BakedGood object.'''
         with app.app_context():
-            prices = [baked_good.price for baked_good in BakedGood.query.all()]
-            highest_price = max(prices)
-
-            b1 = BakedGood(name="Madeleine", price=highest_price + 1)
+            # Create test data first so we have something to query
+            b1 = BakedGood(name="Madeleine", price=10)
             db.session.add(b1)
             db.session.commit()
-            b2 = BakedGood(name="Donut", price=highest_price - 1)
+            b2 = BakedGood(name="Donut", price=5)
             db.session.add(b2)
             db.session.commit()
+
+            prices = [baked_good.price for baked_good in BakedGood.query.all()]
+            highest_price = max(prices)
 
             response = app.test_client().get('/baked_goods/most_expensive')
             data = json.loads(response.data.decode())
@@ -163,15 +165,16 @@ class TestApp:
     def test_most_expensive_baked_good_route_returns_most_expensive_baked_good_object(self):
         '''returns JSON representing one models.BakedGood object.'''
         with app.app_context():
-            prices = [baked_good.price for baked_good in BakedGood.query.all()]
-            highest_price = max(prices)
-
-            b1 = BakedGood(name="Madeleine", price=highest_price + 1)
+            # Create test data first so we have something to query
+            b1 = BakedGood(name="Madeleine", price=10)
             db.session.add(b1)
             db.session.commit()
-            b2 = BakedGood(name="Donut", price=highest_price - 1)
+            b2 = BakedGood(name="Donut", price=5)
             db.session.add(b2)
             db.session.commit()
+
+            prices = [baked_good.price for baked_good in BakedGood.query.all()]
+            highest_price = max(prices)
 
             response = app.test_client().get('/baked_goods/most_expensive')
             data = json.loads(response.data.decode())
